@@ -61,8 +61,8 @@ function Home() {
             </button>
             )}
             <h1 className="app-title">
-            {currentView === 'wallet' ? 'กระเป๋าเงิน' : 
-            currentView === 'friends' ? 'รายชื่อเพื่อน' : 'My Contact'}
+            {currentView === 'wallet' ? 'T-wallet' : 
+            currentView === 'friends' ? 'รายชื่อเพื่อน' : 'T-Link'}
             </h1>
         </header>
         )}
