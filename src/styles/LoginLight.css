@@ -1,0 +1,71 @@
+/* คอนเทนเนอร์หลักของหน้า Login */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #f0f2f5 0%, #c9d6ff 100%);
+  text-align: center;
+}
+
+/* หัวข้อ */
+.login-container h3 {
+  font-size: 1.8rem;
+  color: #0088cc;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+/* ช่องกรอกเบอร์โทรศัพท์ */
+.login-container input {
+  width: 100%;
+  max-width: 320px;
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  border: 2px solid #ddd;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.login-container input:focus {
+  border-color: #0088cc;
+}
+
+/* ปุ่มเข้าสู่ระบบ / สมัครสมาชิก */
+.login-container button {
+  width: 100%;
+  max-width: 320px;
+  padding: 15px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+  background-color: #0088cc;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 6px 12px rgba(0, 136, 204, 0.3);
+}
+
+.login-container button:hover {
+  background-color: #007bb5;
+  transform: translateY(-2px);
+}
+
+.login-container button:active {
+  transform: translateY(0);
+}
+
+/* ข้อความช่วยเหลือเล็กๆ ด้านล่าง */
+.login-helper {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #666;
+  max-width: 280px;
+  line-height: 1.4;
+}

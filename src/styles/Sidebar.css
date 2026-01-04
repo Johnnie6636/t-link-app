@@ -1,0 +1,165 @@
+/* เมนูข้างที่ซ่อนไว้และพร้อมเลื่อนออกมา */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 290px;
+  height: 100%;
+  background-color: #fdfaf0; /* สีครีมกระดาษพรีเมียม */
+  z-index: 1001;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-100%);
+  border-right: 2px solid #d4af37;
+}
+
+/* เมื่อมี class 'open' ให้เลื่อนออกมา */
+.side-menu.open {
+  transform: translateX(0);
+}
+
+/* ส่วนหัวของ Sidebar ที่เก็บรูปและชื่อ */
+.sidebar-header {
+  padding: 20px 20px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%); /* พื้นหลังดำหรู */
+  color: #d4af37; /* ตัวอักษรทอง */
+  border-bottom: 3px solid #b8860b;
+  text-align: left;
+}
+
+/* วงกลมรูปโปรไฟล์ */
+.profile-circle-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-circle {
+  width: 85px;
+  height: 85px;
+  background-color: white;
+  border: 3px solid #d4af37;
+  border-radius: 50%; /* ทำให้เป็นวงกลม */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  font-weight: bold;
+  color: #d4af37;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+.profile-circle:hover {
+  transform: scale(1.05);
+}
+.profile-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* ไอคอนกล้องถ่ายรูป */
+.camera-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background: #d4af37; /* พื้นหลังสีทอง */
+  border: 2px solid #1a1a1a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+.profile-initial {
+  font-size: 32px;
+  color: #f1d37c;
+  font-weight: bold;
+}
+
+
+/* ข้อมูลตัวอักษรใน Header */
+.user-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f1d37c;
+  margin-bottom: 5px;
+}
+
+
+/* ตกแต่งโหมดแก้ไขชื่อ */
+.sidebar-name-input {
+  background: #fdfaf0;
+  border: 2px solid #d4af37;
+  border-radius: 8px;
+  padding: 5px 10px;
+  color: #1a1a1a;
+  width: 70%;
+}
+.edit-icon-btn, .save-name-btn {
+  background: linear-gradient(145deg, #d4af37, #b8860b);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: #f1d37c;
+  cursor: pointer;
+  font-size: 14px; /* ขนาดเล็กลงเพื่อให้ดูแพง */
+  padding: 5px 5px;
+  border-radius: 6px;
+  margin-left: 10px;
+  transition: all 0.2s ease;
+  align-items: center;
+  justify-content: center;
+}
+.edit-icon-btn:hover {
+  transform: scale(1.2);
+}
+
+/*รายการเมนู*/
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 20px;
+}
+.menu-list li {
+  padding: 18px 25px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid #e0dcc5;
+  color: #444;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.menu-list li span {
+  font-size: 20px;
+  filter: grayscale(0.5);
+}
+.menu-list li:hover {
+  background-color: #f1ecd1;
+  padding-left: 35px; /* เอฟเฟกต์เลื่อนเมื่อชี้ */
+  color: #b8860b;
+}
+.menu-list li:hover span {
+  filter: grayscale(0);
+}
+
+/* 6. ปุ่มออกจากระบบ */
+.logout-item {
+  margin-top: 20px;
+  color: #8b0000 !important;
+  border-top: 2px dashed #e0dcc5;
+}
+
+.logout-item:hover {
+  background-color: #fff1f0 !important;
+  color: #d32f2f !important;
+}
+
+.user-id, .user-phone {
+  margin: 4px 0;
+  font-size: 1.5rem;
+  color: #cccccc;
+  letter-spacing: 0.5px;
+}
+

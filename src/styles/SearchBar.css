@@ -1,0 +1,37 @@
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f1f3f4;
+  border-radius: 25px;
+  padding: 5px 15px;
+  border: 1px solid #e0e0e0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-bar input {
+  flex: 1; /* ให้ช่องพิมพ์ยืดจนเต็มพื้นที่ที่เหลือ */
+  border: none;
+  background: transparent;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  min-width: 0; /* ป้องกัน input ดันจนล้นหน้าจอ */
+}
+
+.search-submit-btn {
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  padding: 5px 10px;
+  color: #b8860b;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-radius: 25px;
+  background-color: white;
+  border-color: #b8860b;
+  box-shadow: 0 0 0 3px rgba(0,136,204,0.1);
+}

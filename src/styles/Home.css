@@ -1,0 +1,122 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Kanit', sans-serif;
+}
+
+body {
+  margin: 0;
+  /* พื้นหลังด้านนอกคอนเทนเนอร์ให้ดูมืดลงเพื่อขับตัวแอปให้เด่น */
+  background-color: #121212; 
+}
+
+/* 1. การตั้งค่าหน้าจอหลัก */
+.home-container {
+  max-width: 500px;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: #fdfaf0; /* สีครีมกระดาษพรีเมียม */
+  min-height: 100vh;
+  position: relative;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+/* 2. Header สไตล์ปกสมุดบัญชีทอง */
+.home-header {
+  background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+  color: #d4af37; /* สีทอง */
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 3px solid #d4af37;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* 3. ปุ่มเมนู (☰) */
+.menu-btn {
+  background: #d4af37;
+  border: none;
+  color: #1a1a1a;
+  font-size: 20px;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.menu-btn:hover {
+  background: #f1d37c;
+  transform: scale(1.05);
+}
+
+.app-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* 4. ส่วนเนื้อหาหลัก */
+.content-area {
+  flex: 1; /* ส่วนเนื้อหา (รวมถึงหน้าแชท) จะกินพื้นที่ที่เหลือทั้งหมด */
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* ป้องกันเนื้อหาดันจนล้น */
+}
+
+/* 5. หัวข้อแบ่งส่วน (Section Title) */
+.section-title {
+  padding: 20px 20px 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #b8860b; /* สีทองเข้ม */
+  text-transform: uppercase;
+  border-bottom: 1px solid #e0dcc5;
+  margin-bottom: 5px;
+  background-color: rgba(212, 175, 55, 0.05);
+}
+
+/* 6. Overlay พื้นหลังมืดเวลาเปิด Sidebar */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px); /* เพิ่มความเบลอให้พื้นหลัง */
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 7. ส่วนของ List Section */
+.list-section {
+  background-color: transparent;
+}
+
+/* ตกแต่ง Scrollbar ให้ดูหรู */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fdfaf0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 10px;
+}

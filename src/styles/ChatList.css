@@ -1,0 +1,89 @@
+/* คอนเทนเนอร์หลักของรายการแชท */
+.chat-list-container {
+  background-color: #fdfaf0; /* สีครีมกระดาษ */
+  min-height: 100%;
+}
+
+/* รายการแชทแต่ละช่อง (เปรียบเสมือนแถวในสมุดบัญชี) */
+.chat-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e0dcc5; /* เส้นคั่นสีทองอ่อน */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.chat-item:hover {
+  background-color: #f1ecd1; /* สีเข้มขึ้นเมื่อเอาเมาส์วาง */
+  padding-left: 25px; /* เอฟเฟกต์ขยับเล็กน้อย */
+}
+
+/* วงกลมรูปโปรไฟล์เพื่อน */
+.chat-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1a1a1a, #444); /* สีดำหรู */
+  border: 2px solid #d4af37; /* ขอบทอง */
+  color: #f1d37c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin-right: 18px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.chat-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ส่วนข้อมูลข้อความ */
+.chat-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+}
+
+/* ชื่อเพื่อน (สไตล์หัวข้อบัญชี) */
+.chat-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ข้อความล่าสุด (สไตล์บันทึกรายการ) */
+.chat-last-msg {
+  font-size: 0.9rem;
+  color: #777;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: italic; /* ให้ดูเหมือนลายมือบันทึก */
+}
+
+/* ตกแต่งเพิ่มเติมสำหรับรายการที่ยังไม่ได้อ่าน (ถ้ามีในอนาคต) */
+.chat-item.unread {
+  background-color: #fff9e6;
+  border-left: 5px solid #d4af37;
+}
+
+/* ข้อความ "ไม่พบรายการ" */
+.no-chats {
+  text-align: center;
+  padding: 50px 20px;
+  color: #b8860b;
+  font-style: italic;
+}

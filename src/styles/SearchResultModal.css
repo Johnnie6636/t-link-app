@@ -1,0 +1,147 @@
+/* 1. พื้นหลังโปร่งแสงด้านหลัง Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75); /* ดำเข้มขึ้นเพื่อให้ Modal เด่น */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(5px); /* เพิ่มความเบลอให้พื้นหลังดูหรู */
+}
+
+/* 2. กล่องเนื้อหา Modal */
+.modal-content {
+  background-color: #fdfaf0; /* สีครีมกระดาษพรีเมียม */
+  width: 90%;
+  max-width: 360px;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  border: 3px solid #d4af37; /* ขอบทอง */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* 3. ส่วนหัวข้อ */
+.modal-title {
+  color: #1a1a1a;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+  border-bottom: 2px solid #e0dcc5;
+  padding-bottom: 10px;
+}
+
+/* 4. ส่วนโปรไฟล์เพื่อนที่พบ */
+.profile-section {
+  margin: 20px 0;
+}
+
+.profile-circle {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #1a1a1a, #333);
+  border: 4px solid #d4af37;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: #f1d37c;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+.profile-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-name-s {
+  color: #1a1a1a;
+  font-size: 1.3rem;
+  margin: 10px 0 5px;
+}
+
+.user-id-s {
+  color: #b8860b;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: #f1ecd1;
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 20px;
+}
+
+/* 5. ปุ่มกด */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.chat-btn {
+  background: linear-gradient(145deg, #d4af37, #b8860b);
+  color: #1a1a1a;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancel-btn {
+  background: linear-gradient(145deg, #5f5e5c, #3f3f3e);
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chat-btn:hover {
+  background: linear-gradient(145deg, #f1d37c, #d4af37);
+  transform: translateY(-2px);
+}
+
+.close-btn {
+  background: none;
+  border: 1px solid #ccc;
+  color: #666;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.close-btn:hover {
+  background-color: #eee;
+}
+
+/* 6. กรณี Error หรือหาไม่เจอ */
+.icon-badge {
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
+.modal-content h2 {
+  color: #8b0000; /* สีแดงเข้มสำหรับกรณีหาไม่เจอ */
+}
+
