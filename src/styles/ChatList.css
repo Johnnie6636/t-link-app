@@ -8,7 +8,7 @@
 .chat-item {
   display: flex;
   align-items: center;
-  padding: 15px 20px;
+  padding: 12px;
   border-bottom: 1px solid #e0dcc5; /* เส้นคั่นสีทองอ่อน */
   cursor: pointer;
   transition: all 0.3s ease;
@@ -38,11 +38,39 @@
   overflow: hidden;
   flex-shrink: 0;
 }
-
 .chat-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.chat-unread-badge {
+  background-color: #d4af37; 
+  color: rgb(0, 0, 0);
+  font-size: 19px;            /* ลดลงเล็กน้อยเพื่อให้ดูสมดุลกับวงกลม */
+  font-weight: 2000;           /* ใช้ 800 เพื่อให้ตัวเลขดูแน่นและชัดเจน */
+  
+  /* บังคับให้เป็นวงกลมที่คงที่ */
+  width: 36px;                
+  height: 36px;
+  border-radius: 50%;         /* ใช้ 50% จะเป๊ะกว่าการระบุเลขครับ */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* 🛠️ จุดแก้เรื่องตัวเลขไม่กลาง */
+  line-height: 0;             /* ล้างระยะบรรทัดของฟอนต์ */
+  padding: 0;                 /* เอา padding ออกเพื่อให้ flex จัดการเอง */
+  
+  margin-left: auto;
+  
+  /* ✨ เพิ่มมิติให้สวยขึ้น */
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16); 
+  border: 2px solid #8a6a00;  /* ตัดขอบด้วยสีพื้นหลัง ทำให้ Badge ดูลอยเด่นออกมา */
+  
+  /* ป้องกันการบีบตัวเลข */
+  flex-shrink: 0;
 }
 
 /* ส่วนข้อมูลข้อความ */

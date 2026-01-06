@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { auth } from '../services/firebase';
+import { auth, db } from '../services/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { saveUserToFirestore } from '../services/userService';
 import '../styles/LoginDark.css';
@@ -12,9 +13,19 @@ function Login() {
     const password = phone;
 
     try {
-      // 1. พยายามล็อกอินก่อน
-      await signInWithEmailAndPassword(auth, fakeEmail, password);
-      console.log("เข้าสู่ระบบสำเร็จ!");
+      // 1. พยายามล็อกอิน
+      const userCredential = await signInWithEmailAndPassword(auth, fakeEmail, password);
+  
+      // 🔍 เพิ่มขั้นตอน: เช็คว่ามีข้อมูลใน Firestore หรือยัง?
+      const userRef = doc(db, "users", userCredential.user.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (!userSnap.exists()) {
+        // ถ้าล็อกอินผ่าน แต่ไม่มีข้อมูลใน DB ให้สร้างให้เขาเลย
+        await saveUserToFirestore(userCredential.user, phone);
+        console.log("บันทึกข้อมูลย้อนหลังสำเร็จ!");
+      }
+    console.log("เข้าสู่ระบบสำเร็จ!");
     } catch (error) {
       console.log("Firebase Error Code:", error.code);
       

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { auth, db } from '../services/firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import Sidebar from '../components/Sidebar';
 import SearchBar from '../components/SearchBar';
 import ChatList from '../components/ChatList';
@@ -18,18 +18,28 @@ function Home() {
   const [currentView, setCurrentView] = useState('chats');
   const [selectedChatId, setSelectedChatId] = useState(null);
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const userRef = doc(db, "users", user.uid);
-        const userSnap = await getDoc(userRef);
-        if (userSnap.exists()) {
-          setUserData(userSnap.data());
+useEffect(() => {
+  const unsubscribeAuth = auth.onAuthStateChanged((user) => {
+    if (user) {
+      // เปลี่ยนจาก getDoc เป็น onSnapshot เพื่อเฝ้าดูการเปลี่ยนแปลงของ Document นี้
+      const userRef = doc(db, "users", user.uid);
+      
+      const unsubscribeSnapshot = onSnapshot(userRef, (docSnap) => {
+        if (docSnap.exists()) {
+          setUserData(docSnap.data());
+          console.log("Sidebar: ข้อมูลอัปเดตแบบ Real-time แล้ว!");
         }
-      }
-    });
-    return () => unsubscribe();
-  }, []);
+      });
+
+      // คืนค่าฟังก์ชันเพื่อหยุดติดตาม snapshot เมื่อ user logout หรือ component ถูกทำลาย
+      return () => unsubscribeSnapshot();
+    } else {
+      setUserData(null);
+    }
+  });
+
+  return () => unsubscribeAuth();
+}, []);
 
   // ฟังก์ชันจัดการการคลิกเมนูใน Sidebar
   const handleNavigate = (page) => {
@@ -105,6 +115,7 @@ function Home() {
             <SearchResultModal 
             result={searchResult} 
             onClose={() => setSearchResult(null)} 
+            onChat={handleStartChatting}
             />
         )}
     </div>

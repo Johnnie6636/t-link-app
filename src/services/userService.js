@@ -47,12 +47,15 @@ export const createInitialWallet = async (uid, userData) => {
 
 // 4. ฟังก์ชันบันทึกผู้ใช้ และเรียกใช้การสร้างกระเป๋าเงิน
 export const saveUserToFirestore = async (user, phoneNumber) => {
+  console.log("เริ่มฟังก์ชัน saveUserToFirestore ด้วย UID:", user?.uid);
   if (!user) return;
 
   const userRef = doc(db, "users", user.uid);
   const userSnap = await getDoc(userRef);
+  console.log("ผลการเช็ค userSnap:", userSnap.exists());
 
   if (!userSnap.exists()) {
+    console.log("กำลังจะสร้างข้อมูลผู้ใช้ใหม่...");
     let newDisplayId = generateRandomId();
     while (!(await isIdUnique(newDisplayId))) {
       newDisplayId = generateRandomId();

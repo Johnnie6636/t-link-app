@@ -64,7 +64,7 @@ function ChatRoom({ chatId, onBack }) {
   // --- ส่วนคำนวณตัวแปรสำหรับใช้งานใน UI ---
   const myUid = auth.currentUser?.uid;
 
-  const participants = chatData?.participants ? Object.keys(chatData.participants) : [];
+  const participants = chatData?.participants || [];
 
   const friendId = participants.find(id => id !== myUid);
 

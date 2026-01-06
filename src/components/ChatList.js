@@ -8,12 +8,11 @@ function ChatList({ onChatClick }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!auth.currentUser) return;
-
-    // 1. ค้นหาห้องแชทที่ "เรา" มีส่วนร่วมอยู่
+    if (!auth.currentUser) { return; }
+    // 1. ดึงห้องแชทที่เราเป็นสมาชิก
     const q = query(
       collection(db, "chats"),
-      where(`participants.${auth.currentUser.uid}`, "==", true),
+      where("participants", "array-contains", auth.currentUser.uid),
       orderBy("updatedAt", "desc") // เรียงตามแชทล่าสุด
     );
 
@@ -22,7 +21,7 @@ function ChatList({ onChatClick }) {
         //สร้าง state ใหม่ chatData เพื่อเก็บรายละเอียดห้องแชท (เช่น ใครอยู่ในห้องบ้าง)
         const chatData = chatDoc.data();
         // 2. หา UID ของ "เพื่อน" (คนที่ไม่ใช่เรา)
-        const participantIds = Object.keys(chatData.participants);
+        const participantIds = chatData.participants;
         const friendId = participantIds.find(id => id !== auth.currentUser.uid);
 
         // 3. ดึงข้อมูลชื่อและรูปเพื่อนจากคอลเลกชัน 'users'
@@ -58,8 +57,13 @@ function ChatList({ onChatClick }) {
             </div>
             <div className="chat-info">
               <div className="chat-name">{chat.friendName}</div>
-              <div className="chat-last-msg">{chat.lastMessage}</div>
+              <div className="chat-last-msg">{chat.lastMessage || "เริ่มคุยกันเลย! 😊"}</div>
             </div>
+            {chat.unreadCount && chat.unreadCount[auth.currentUser.uid] > 0 && (
+              <div className="chat-unread-badge">
+                {chat.unreadCount[auth.currentUser.uid]}
+              </div>
+            )}
           </div>
         ))
       ) : (
