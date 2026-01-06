@@ -20,20 +20,33 @@ function ChatRoom({ chatId, onBack }) {
   const [chatData, setChatData] = useState(null);
   const [friendName, setFriendName] = useState("กำลังโหลดชื่อ...");
   const scrollRef = useRef();
+  const myUid = auth.currentUser?.uid;
 
   // 1. ดึงข้อมูลพื้นฐานของห้องแชท (เพื่อดึงชื่อเพื่อนและเช็คจำนวนข้อความที่ไม่อ่าน)
   useEffect(() => {
-    if (!chatId) return;
+    if (!chatId || !myUid) return;
     const chatDocRef = doc(db, "chats", chatId);
   
-    const unsubscribe = onSnapshot(chatDocRef, (docSnap) => {
+    const unsubscribe = onSnapshot(chatDocRef, async (docSnap) => {
         if (docSnap.exists()) {
-            setChatData(docSnap.data());
+          const data = docSnap.data();
+          setChatData(data);
+          const myUnread = data.unreadCount?.[myUid] || 0;
+          if (myUnread > 0) {
+            try {
+              await updateDoc(chatDocRef, {
+                [`unreadCount.${myUid}`]: 0
+              });
+              console.log("รีเซ็ตตัวเลขแจ้งเตือนแล้ว");
+            } catch (err) {
+              console.error("รีเซ็ตไม่สำเร็จ:", err);
+            }
+          }
         }
     });
 
     return () => unsubscribe();
-  }, [chatId]);
+  }, [chatId, myUid]);
 
   // 2. ดึงข้อความแบบ Real-time (เรียงใหม่สุดอยู่ล่าง)
   useEffect(() => {
@@ -62,12 +75,12 @@ function ChatRoom({ chatId, onBack }) {
   }, [messages]);
 
   // --- ส่วนคำนวณตัวแปรสำหรับใช้งานใน UI ---
-  const myUid = auth.currentUser?.uid;
-
+  
   const participants = chatData?.participants || [];
-
   const friendId = participants.find(id => id !== myUid);
-
+  // 🟢 2. เพิ่มการคำนวณ readIndex
+  const unreadCount = chatData?.unreadCount?.[friendId] || 0;
+  const readIndex = messages.length - unreadCount - 1;
     useEffect(() => {
   if (!friendId) return;
 
@@ -144,15 +157,31 @@ useEffect(() => {
 
       {/* พื้นที่แสดงข้อความ */}
       <div className="messages-area">
-        {messages.map((msg) => (
-          <div 
-            key={msg.id} 
-            className={`message-bubble ${msg.senderId === myUid ? 'me' : 'friend'}`}
-          >
-            <div className="message-text">{msg.text}</div>
-            <div className="message-time">{formatTime(msg.createdAt)}</div>
-          </div>
-        ))}
+        {messages.map((msg, index) => {
+          const isMyMessage = msg.senderId === myUid;
+          // คำนวณว่าข้อความที่ index นี้ เพื่อนอ่านหรือยัง
+          const isMessageRead = index <= readIndex; 
+
+          return (
+            <div key={msg.id} className="message-wrapper">
+              <div className={`message-bubble ${isMyMessage ? 'me' : 'friend'}`}>
+                <div className="message-text">{msg.text}</div>
+        
+                <div className="message-time">
+                  {formatTime(msg.createdAt)}
+          
+                  {/* ✅ แสดงเช็คมาคเฉพาะข้อความของเรา */}
+                  {isMyMessage && (
+                    <div className={`checkmark-container ${isMessageRead ? 'read' : ''}`}>
+                      <span className="check-1">✓</span>
+                      {isMessageRead && <span className="check-2">✓</span>}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            );
+        })}
         <div ref={scrollRef} /> 
       </div>
 

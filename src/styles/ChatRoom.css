@@ -137,3 +137,64 @@ html, body {
   transform: scale(0.95);
   background: #007bb5;
 }
+
+/* ✅ 1. จัดตำแหน่งสถานะ "อ่านแล้ว" ให้ชิดขวาตามข้อความของเรา */
+.read-status-container {
+  display: flex;
+  justify-content: flex-end; /* ดันไปทางขวา */
+  padding: 0 10px;           /* เว้นระยะจากขอบจอเล็กน้อย */
+  margin-top: -8px;          /* ขยับขึ้นไปให้ใกล้กับกล่องข้อความมากขึ้น */
+  margin-bottom: 12px;       /* เว้นระยะห่างจากข้อความถัดไป */
+}
+
+/* ✅ 2. ตกแต่งตัวอักษร "อ่านแล้ว" */
+.read-text {
+  font-size: 0.75rem;        /* ขนาดพอๆ กับเวลา */
+  color: #777;               /* สีเทาไม่เข้มเกินไป */
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.6); /* ทำพื้นหลังจางๆ ให้ดูอ่านง่ายขึ้นบน Wallpaper */
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+/* ✅ 3. ปรับโครงสร้าง Wrapper เพื่อให้ flex ทำงานถูกต้อง */
+.message-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.checkmark-container {
+  display: inline-flex;
+  position: relative;
+  margin-left: 6px;   /* เพิ่มระยะห่างจากเวลาเล็กน้อย */
+  width: 10px;        /* ขยายความกว้างเพื่อให้เช็คสองอันไม่เบียดกันเกินไป */
+  height: 14px;
+  color: #999;        /* สีเทาตอนยังไม่อ่าน */
+  font-weight: bold;  /* ✅ ทำให้เส้นหนาขึ้นเพื่อให้มองเห็นชัด */
+  font-size: 14px;    /* ✅ ปรับขนาดให้ใหญ่ขึ้นตามต้องการ */
+}
+
+/* ✅ สีฟ้าสว่างเมื่ออ่านแล้ว */
+.checkmark-container.read {
+  color: #9b6500;     /* สีฟ้ามาตรฐานแอปแชท */
+}
+
+.check-1 {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.check-2 {
+  position: absolute;
+  left: 5px;          /* ปรับระยะซ้อนให้ดูสวยงาม */
+  bottom: 0;
+}
+
+/* ✅ ตรวจสอบว่า .message-time จัดวางแบบ flex */
+.message-time {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
