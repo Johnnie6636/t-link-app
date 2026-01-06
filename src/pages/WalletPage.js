@@ -34,17 +34,27 @@ function WalletPage({ onBack }) {
 
       <div className="passbook-body">
         <div className="info-row">
+          <span className="label">ธนาคาร:</span>
+          <span className="value">
+            {walletData?.bankName === "ยังไม่ได้ระบุ" ? "---" : walletData?.bankName || "---"}
+          </span>
+        </div>
+        <div className="info-row">
           <span className="label">ชื่อบัญชี:</span>
-          <span className="value">{walletData?.accountName || "ไม่ระบุ"}</span>
+          <span className="value">
+            {walletData?.accountName?.startsWith("User_") ? "---" : walletData?.accountName || "---"}
+          </span>
         </div>
         <div className="info-row">
           <span className="label">เลขที่บัญชี:</span>
-          <span className="value account-num">{walletData?.accountNumber || "กำลังตรวจสอบ..."}</span>
+          <span className="value account-num">
+            {walletData?.accountNumber === walletData?.phoneNumber ? "---" : walletData?.accountNumber || "---"}
+          </span>
         </div>
         
         <div className="info-row credit-row">
           <span className="label">คะแนนเครดิต:</span>
-          <span className="value credit-value">⭐⭐ {walletData?.creditScore || "100"} แต้ม</span>
+          <span className="value credit-value">{walletData?.creditScore || "100"} %</span>
         </div>
       </div>
 
@@ -56,7 +66,9 @@ function WalletPage({ onBack }) {
       </div>
     </div>
     
-    <p className="update-hint">อัปเดตล่าสุด: {walletData?.updatedAt?.toDate().toLocaleString('th-TH')}</p>
+    <p className="update-hint">
+      อัปเดตล่าสุด: {walletData?.updatedAt ? walletData.updatedAt.toDate().toLocaleString('th-TH') : "ยังไม่มีข้อมูล"}
+    </p>
   </div>
 );
 }

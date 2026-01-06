@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { auth, db } from '../services/firebase';
-import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 import Sidebar from '../components/Sidebar';
 import SearchBar from '../components/SearchBar';
 import ChatList from '../components/ChatList';
@@ -41,12 +41,6 @@ useEffect(() => {
   return () => unsubscribeAuth();
 }, []);
 
-  // ฟังก์ชันจัดการการคลิกเมนูใน Sidebar
-  const handleNavigate = (page) => {
-    setSidebarOpen(false); // ปิด Sidebar ก่อน
-    setCurrentView(page);
-  };
-
   const handleStartChatting = (chatId) => {
     setSelectedChatId(chatId);
     setCurrentView('chatting');
@@ -71,7 +65,7 @@ useEffect(() => {
             </button>
             )}
             <h1 className="app-title">
-            {currentView === 'wallet' ? 'T-wallet' : 
+            {currentView === 'wallet' ? 'T-Link' : 
             currentView === 'friends' ? 'รายชื่อเพื่อน' : 'T-Link'}
             </h1>
         </header>

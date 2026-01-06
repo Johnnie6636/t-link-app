@@ -94,13 +94,14 @@
   cursor: pointer;
   border: none;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  transition: all 0.2s;
+  transition: all 0.5s;
   padding: 2px 1px 3px;
 }
 
 .telegram-chat-btn:hover {
   background: linear-gradient(145deg, #f1d37c, #d4af37);
   transform: scale(1.1);
+  transform: rotate(360deg);
 }
 
 .telegram-delete-btn {
@@ -116,14 +117,14 @@
   cursor: pointer;
   border: none;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  transition: all 0.2s;
+  transition: all 0.5s;
   padding: 2px 1px 3px;
 }
 
 .telegram-delete-btn:hover {
   background-color: #fff1f0;
   border-color: #8b0000;
-  transform: rotate(90deg);
+  transform: rotate(360deg);
 }
 
 /* ข้อความแจ้งเตือนเมื่อไม่มีเพื่อน */
