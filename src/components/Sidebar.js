@@ -6,7 +6,7 @@ import { signOut } from 'firebase/auth';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../services/firebase';
 
-function Sidebar({ isOpen, user, onNavigate }) {
+function Sidebar({ isOpen, user, onNavigate, handleToggleNotification }) {
     const [userData, setUserData] = useState(user || {});
     const [tempName, setTempName] = useState(user?.displayName || "");
     const [isEditing, setIsEditing] = useState(false);
@@ -150,6 +150,23 @@ function Sidebar({ isOpen, user, onNavigate }) {
         <li onClick={() => onNavigate('friends')}>
           <span>👥</span> รายชื่อเพื่อนของคุณ
         </li>
+        
+        {/* ✅ เพิ่มรายการเมนูใหม่สำหรับเปิดการแจ้งเตือน */}
+        <li className="menu-item-with-toggle">
+          <div className="menu-item-content">
+            <span>🔔</span> เปิดการแจ้งเตือน
+          </div>
+          {/* สร้างสวิตช์ Toggle */}
+          <label className="switch">
+            <input 
+              type="checkbox" 
+              checked={!!userData?.fcmToken} // ถ้ามี token จะถือว่าเปิด (true)
+              onChange={(e) => handleToggleNotification(e.target.checked)} // ส่งค่า true/false กลับไป
+            />
+            <span className="slider round"></span>
+          </label>
+        </li>
+
         <li onClick={() => onNavigate('settings')}>
           <span>⚙️</span> ตั้งค่า
         </li>

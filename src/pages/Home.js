@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { auth, db } from '../services/firebase';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { getMessaging, getToken } from 'firebase/messaging';
+import { updateDoc, doc, onSnapshot } from 'firebase/firestore';
 import Sidebar from '../components/Sidebar';
 import SearchBar from '../components/SearchBar';
 import ChatList from '../components/ChatList';
@@ -18,12 +19,61 @@ function Home() {
   const [currentView, setCurrentView] = useState('chats');
   const [selectedChatId, setSelectedChatId] = useState(null);
 
+  const handleToggleNotification = async (isEnabling) => {
+  try {
+    if (isEnabling) {
+      const permission = await Notification.requestPermission();
+      if (permission === 'granted'){
+        const messaging = getMessaging();
+        const token = await getToken(messaging, { 
+        vapidKey: 'BLMBCU_XOehgDIGSxNxQNrYojXg3SkJyrF9fW_5l7N2KHOUQDBba37onehTkmUarvWCYtr3CsYNoE9CBK26xw-E' 
+        });
+        if (token) {
+          const userRef = doc(db, "users", auth.currentUser.uid);
+          await updateDoc(userRef, { fcmToken: token });
+          console.log("เปิดการแจ้งเตือนสำเร็จ 🔔");
+        }
+      } else {
+        alert('กรุณาอนุญาตการแจ้งเตือนในตั้งค่าเบราว์เซอร์ครับ');
+      }
+      // TODO: ดึง Token และบันทึกลง Firestore
+    } else {
+      // --- ส่วนของการ "ปิด" ---
+      const userRef = doc(db, "users", auth.currentUser.uid);
+      // ใช้ deleteField() หรือตั้งเป็น null เพื่อหยุดการส่งแจ้งเตือนจากหลังบ้าน
+      await updateDoc(userRef, { fcmToken: null });
+      console.log("ปิดการแจ้งเตือนแล้ว 🔕");
+    }
+  } catch (error) {
+    console.error('เกิดข้อผิดพลาด:', error);
+  }
+};
+
 useEffect(() => {
   const unsubscribeAuth = auth.onAuthStateChanged((user) => {
     if (user) {
+      // 1. ดึงค่าจาก .env เตรียมไว้
+      const fcmConfig = {
+        apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+        projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+        messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+        appId: process.env.REACT_APP_FIREBASE_APP_ID,
+      };
+      // 2. สร้าง URL พร้อม Query Parameters
+      const swUrl = `/firebase-messaging-sw.js?${new URLSearchParams(fcmConfig).toString()}`;
+      
       // เปลี่ยนจาก getDoc เป็น onSnapshot เพื่อเฝ้าดูการเปลี่ยนแปลงของ Document นี้
       const userRef = doc(db, "users", user.uid);
-      
+      // 3. สั่งลงทะเบียน Service Worker
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register(swUrl)
+        .then((registration) => {
+          console.log('Service Worker ลงทะเบียนสำเร็จ:', registration.scope);
+        })
+        .catch((err) => {
+          console.error('ลงทะเบียน Service Worker ล้มเหลว:', err);
+        });
+      }
       const unsubscribeSnapshot = onSnapshot(userRef, (docSnap) => {
         if (docSnap.exists()) {
           setUserData(docSnap.data());
@@ -75,9 +125,10 @@ useEffect(() => {
             isOpen={isSidebarOpen} 
             user={userData}
             onNavigate={(page) => {
-            setCurrentView(page);
-            setSidebarOpen(false);
-            }} 
+              setCurrentView(page);
+              setSidebarOpen(false);
+            }}
+            handleToggleNotification={handleToggleNotification} // ✅ ส่ง props ใหม่ไป 
         />
 
         <main className="content-area">
