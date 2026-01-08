@@ -5,6 +5,8 @@ import {
   getDoc, getDocs, addDoc, deleteDoc, serverTimestamp 
 } from 'firebase/firestore';
 import '../styles/FriendListPage.css';
+import chatIcon from '../assets/icons/chat.png';
+import deleteIcon from '../assets/icons/delete.png';
 
 function FriendListPage({ onBack, onChat }) {
   const [friends, setFriends] = useState([]);
@@ -128,13 +130,13 @@ function FriendListPage({ onBack, onChat }) {
                   className="telegram-chat-btn" 
                   onClick={() => handleStartChat(friend)}
                 >
-                  แชท
+                  <img src={chatIcon} alt="Chat" style={{ width: '24px' }} />
                 </button>
                 <button 
                   className="telegram-delete-btn" 
                   onClick={() => handleDeleteFriend(friend.friendDocId)}
                 >
-                  ลบ
+                  <img src={deleteIcon} alt="Delete" style={{ width: '24px' }} />
                 </button>
               </div>
             </div>

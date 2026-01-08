@@ -80,7 +80,7 @@
 
 /* ข้อมูลตัวอักษรใน Header */
 .user-name {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 700;
   color: #f1d37c;
   margin-bottom: 5px;
@@ -101,8 +101,8 @@
   border: 1px solid rgba(212, 175, 55, 0.3);
   color: #f1d37c;
   cursor: pointer;
-  font-size: 14px; /* ขนาดเล็กลงเพื่อให้ดูแพง */
-  padding: 5px 5px;
+  font-size: 10px; /* ขนาดเล็กลงเพื่อให้ดูแพง */
+  padding: 5px 5px 2px 5px;
   border-radius: 6px;
   margin-left: 10px;
   transition: all 0.2s ease;
@@ -132,7 +132,7 @@
   transition: all 0.3s;
 }
 .menu-list li span {
-  font-size: 20px;
+  font-size: 16px;
   filter: grayscale(0.5);
 }
 .menu-list li:hover {
@@ -158,7 +158,7 @@
 
 .user-id, .user-phone {
   margin: 4px 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: #cccccc;
   letter-spacing: 0.5px;
 }

@@ -82,7 +82,7 @@
 
 /* ปุ่มเริ่มแชทสีทอง */
 .telegram-chat-btn {
-  background: linear-gradient(145deg, #d4af37, #b8860b);
+  background: linear-gradient(145deg, #d4af3775, #b8870b7e);
   color: #ffffff;
   width: 40px;
   height: 40px;
@@ -94,7 +94,7 @@
   cursor: pointer;
   border: none;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  transition: all 0.5s;
+  transition: all 0.75s;
   padding: 2px 1px 3px;
 }
 
@@ -105,7 +105,7 @@
 }
 
 .telegram-delete-btn {
-  background: linear-gradient(145deg, #ec1515, #e21313);
+  background: linear-gradient(145deg, #ec15153d, #e2131363);
   color: #ffffff;
   width: 40px;
   height: 40px;
@@ -117,7 +117,7 @@
   cursor: pointer;
   border: none;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  transition: all 0.5s;
+  transition: all 0.75s;
   padding: 2px 1px 3px;
 }
 

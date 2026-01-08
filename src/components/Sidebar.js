@@ -5,6 +5,12 @@ import { doc, updateDoc, onSnapshot } from 'firebase/firestore';
 import { signOut } from 'firebase/auth';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../services/firebase';
+import walletIcon from '../assets/icons/bitcoin-wallet.png';
+import friendsIcon from '../assets/icons/friends.png';
+import notificationIcon from '../assets/icons/notification.png';
+import settingsIcon from '../assets/icons/setting.png';
+import settingsNameIcon from '../assets/icons/setting-name.png';
+import logoutIcon from '../assets/icons/exit.png';
 
 function Sidebar({ isOpen, user, onNavigate, handleToggleNotification }) {
     const [userData, setUserData] = useState(user || {});
@@ -131,7 +137,7 @@ function Sidebar({ isOpen, user, onNavigate, handleToggleNotification }) {
                     className="edit-icon-btn" 
                     onClick={() => setIsEditing(true)}
                   >
-                    ⚙️
+                    <img src={settingsNameIcon} alt="Settings" className="menu-icon" />
                   </button>
                 </div>
               )}
@@ -145,16 +151,16 @@ function Sidebar({ isOpen, user, onNavigate, handleToggleNotification }) {
 
       <ul className="menu-list">
         <li onClick={() => onNavigate('wallet')}>
-          <span>💳</span> กระเป๋าเงินของคุณ
+          <img src={walletIcon} alt="Wallet" className="menu-icon" /> กระเป๋าเงินของคุณ
         </li>
         <li onClick={() => onNavigate('friends')}>
-          <span>👥</span> รายชื่อเพื่อนของคุณ
+          <img src={friendsIcon} alt="Friends" className="menu-icon" /> รายชื่อเพื่อนของคุณ
         </li>
         
         {/* ✅ เพิ่มรายการเมนูใหม่สำหรับเปิดการแจ้งเตือน */}
         <li className="menu-item-with-toggle">
           <div className="menu-item-content">
-            <span>🔔</span> เปิดการแจ้งเตือน
+            <img src={notificationIcon} alt="Notification" className="menu-icon" /> การแจ้งเตือน
           </div>
           {/* สร้างสวิตช์ Toggle */}
           <label className="switch">
@@ -168,10 +174,10 @@ function Sidebar({ isOpen, user, onNavigate, handleToggleNotification }) {
         </li>
 
         <li onClick={() => onNavigate('settings')}>
-          <span>⚙️</span> ตั้งค่า
+          <img src={settingsIcon} alt="Settings" className="menu-icon" /> ตั้งค่า
         </li>
         <li className="logout-item" onClick={handleLogout}>
-          <span>⍈</span> ออกจากระบบ
+          <img src={logoutIcon} alt="Logout" className="menu-icon" /> ออกจากระบบ
         </li>
       </ul>
     </div>

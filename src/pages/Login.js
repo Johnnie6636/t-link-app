@@ -4,6 +4,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { saveUserToFirestore } from '../services/userService';
 import '../styles/LoginDark.css';
+import logo from '../assets/logos/t-link-logo.png';
 
 function Login() {
   const [phone, setPhone] = useState('');
@@ -46,7 +47,10 @@ function Login() {
 
   return (
     <div className="login-container">
-      <h3>เข้าสู่ระบบ</h3>
+      <div className="login-logo-section">
+        <img src={logo} alt="T-Link Logo" className="login-logo" />
+      </div>
+      <h3>เข้าสู่ระบบ T Link</h3>
       <input 
         type="tel" 
         placeholder="กรอกเบอร์โทรศัพท์ของคุณ" 
